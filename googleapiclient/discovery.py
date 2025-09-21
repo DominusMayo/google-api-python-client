@@ -540,18 +540,6 @@ def build_from_document(
     if isinstance(client_options, collections.abc.Mapping):
         client_options = google.api_core.client_options.from_dict(client_options)
 
-    if http is not None:
-        # if http is passed, the user cannot provide credentials
-        banned_options = [
-            (credentials, "credentials"),
-            (client_options.credentials_file, "client_options.credentials_file"),
-        ]
-        for option, name in banned_options:
-            if option is not None:
-                raise ValueError(
-                    "Arguments http and {} are mutually exclusive".format(name)
-                )
-
     if isinstance(service, str):
         service = json.loads(service)
     elif isinstance(service, bytes):
